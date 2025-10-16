@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Rules for UI development and styling using BYTE24 UI and Tailwind CSS, emphasizing responsive design and a mobile-first approach.
+globs: **/*.{ts,tsx,js,jsx}
+---
+- Use @byte24/ui package. This package basically consists of all the ShadCN components and more
+- Also use Tailwind for components and styling
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.

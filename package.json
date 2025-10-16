@@ -1,0 +1,30 @@
+{
+  "name": "byte24-assignment-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "type-check": "turbo type-check",
+    "clean": "turbo clean",
+    "db:migrate": "cd apps/server && yarn db:migrate",
+    "lint": "biome check .",
+    "lint:fix": "biome check . --write"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.10",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "yarn@1.22.19",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
+}

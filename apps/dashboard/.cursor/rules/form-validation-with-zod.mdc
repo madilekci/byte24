@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Enforces the use of Zod for form validation throughout the project.
+globs: **/*.ts
+---
+- Use Zod for form validation
+- Create the different schema's in schemas.ts within the relevant /app subdirectory.

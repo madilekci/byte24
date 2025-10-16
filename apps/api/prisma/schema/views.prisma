@@ -1,0 +1,14 @@
+model DataTableView {
+  id                String   @id @default(cuid())
+  name              String
+  params            String
+  columnPreferences Json?
+  createdBy         User     @relation(fields: [createdById], references: [id])
+  createdById       String
+  isShared          Boolean  @default(false)
+  screenTitle       String?
+  createdByName     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  defaultViewUsers  User[]   @relation("defaultView")
+}

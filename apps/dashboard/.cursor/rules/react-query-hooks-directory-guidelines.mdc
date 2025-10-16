@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: This rule specifies the folder structure and purpose for placing React Query custom hooks in dedicated subdirectories.
+globs: src/hooks/**/*.ts
+---
+- Place all query and mutation hooks in hooks.ts in the active directory
+- Example: when working in dashboard directory. Place there a hooks.ts

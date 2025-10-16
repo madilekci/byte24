@@ -1,0 +1,159 @@
+model Company {
+  id      Int     @id @default(autoincrement())
+  name    String
+  email   String?
+  phone   String?
+  website String?
+
+  street      String?
+  houseNumber String?
+  zipCode     String?
+  city        String?
+  countryId   Int?
+  country     Country? @relation("country", fields: [countryId], references: [id])
+
+  invoiceEmail       String?
+  invoiceStreet      String?
+  invoiceHouseNumber String?
+  invoiceZipCode     String?
+  invoiceCity        String?
+  invoiceCountryId   Int?
+  invoiceCountry     Country? @relation("invoiceCountry", fields: [invoiceCountryId], references: [id])
+
+  vatNumber String?
+  cocNumber String?
+  iban      String?
+
+  paymentDays         Int     @default(14)
+  environmentalCharge Boolean @default(false)
+  kycCheck            Boolean @default(false)
+
+  exactId String? @unique
+
+  vatCodeId Int?
+  vatCode   VatCode? @relation(fields: [vatCodeId], references: [id])
+
+  contracts         CompanyContract[]
+  contactPersons    ContactPerson[]
+  mainContactPerson ContactPerson?    @relation("mainContactPerson")
+
+  statusHistory CompanyStatusHistory[] @relation("history")
+  currentStatus CompanyStatusHistory?  @relation("current")
+
+  typeId Int
+  type   CompanyType @relation(fields: [typeId], references: [id])
+
+  createdAt   DateTime @default(now())
+  createdById String?
+  createdBy   User?    @relation("createdBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  updatedAt   DateTime?
+  updatedById String?
+  updatedBy   User?     @relation("updatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+}
+
+model CompanyStatus {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  color            String
+  isCompleted      Boolean @default(false)
+  isSystemRequired Boolean @default(false)
+  isDefault        Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  createdById String
+  createdBy   User     @relation("createdBy", fields: [createdById], references: [id], onDelete: Cascade)
+
+  updatedAt   DateTime? @updatedAt
+  updatedById String?
+  updatedBy   User?     @relation("updatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  statusHistory CompanyStatusHistory[]
+}
+
+model CompanyStatusHistory {
+  id Int @id @default(autoincrement())
+
+  statusId Int
+  status   CompanyStatus @relation(fields: [statusId], references: [id], onDelete: Cascade)
+
+  companyId Int
+  company   Company @relation("history", fields: [companyId], references: [id], onDelete: Cascade)
+
+  currentCompanyId Int?     @unique()
+  currentCompany   Company? @relation("current", fields: [currentCompanyId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  createdById String
+  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+}
+
+model CompanyType {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  color            String
+  isCompleted      Boolean @default(false)
+  isSystemRequired Boolean @default(false)
+  isDefault        Boolean @default(false)
+  isSupplier       Boolean @default(false)
+  isCustomer       Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  createdById String
+  createdBy   User     @relation("createdBy", fields: [createdById], references: [id], onDelete: Cascade)
+
+  updatedAt   DateTime? @updatedAt
+  updatedById String?
+  updatedBy   User?     @relation("updatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  companies Company[]
+}
+
+model CompanyContract {
+  id Int @id @default(autoincrement())
+
+  expireDate DateTime? @db.Date
+
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime? @default(now())
+  createdById String?
+  createdBy   User?     @relation("createdBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  updatedAt   DateTime? @updatedAt
+  updatedById String?
+  updatedBy   User?     @relation("updatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+}
+
+model ContactPerson {
+  id Int @id @default(autoincrement())
+
+  title         String
+  initials      String
+  infix         String @default("")
+  lastName      String
+  preferredName String @default("")
+
+  email String?
+  phone String?
+
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  mainCompanyId Int?     @unique()
+  mainCompany   Company? @relation("mainContactPerson", fields: [mainCompanyId], references: [id], onDelete: Cascade)
+
+  isMainContactPerson Boolean @default(false)
+
+  createdBy   User   @relation("createdBy", fields: [createdById], references: [id], onDelete: Cascade)
+  createdById String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  updatedBy   User?   @relation("updatedBy", fields: [updatedById], references: [id], onDelete: Cascade)
+  updatedById String?
+}

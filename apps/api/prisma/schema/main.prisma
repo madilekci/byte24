@@ -1,0 +1,40 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "linux-musl", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") //Local
+  // url      = env("STAGING_DATABASE_URL") //STAGING
+  // url      = env("PRODUCTION_DATABASE_URL") //PRODUCTION
+}
+
+model VatCode {
+  id      Int     @id @default(autoincrement())
+  name    String?
+  exactId String? @unique
+  code    String? @unique
+
+  type            String? // E means Exclusif, I means Inclusief
+  transactionType String? // B = Both, S = Sales, P = Purchase
+
+  percentage Decimal @default(0) @db.Decimal(12, 4)
+  rate       Decimal @default(0) @db.Decimal(12, 4)
+
+  isStandard Boolean @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @default(now())
+
+  companies Company[]
+}
+
+model Country {
+  id   Int     @id @default(autoincrement())
+  name String? @unique
+  code String? @unique
+
+  companies        Company[] @relation("country")
+  invoiceCompanies Company[] @relation("invoiceCountry")
+}

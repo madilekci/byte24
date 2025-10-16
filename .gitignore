@@ -1,0 +1,54 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage
+
+# Turbo
+.turbo
+
+# Vercel
+.vercel
+
+# Build Outputs
+.next/
+out/
+build
+dist
+
+# keys
+.npmrc
+
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+.DS_Store
+*.pem
+yalc.lock
+.yalc/
+*.code-workspace
+
+# Serwist
+apps/dashboard/public/sw*
+apps/dashboard/public/swe-worker*
+
+apps/carss-app/public/sw*
+apps/carss-app/public/swe-worker*
+
+apps/flexcarss-app/public/sw*
+apps/flexcarss-app/public/swe-worker*

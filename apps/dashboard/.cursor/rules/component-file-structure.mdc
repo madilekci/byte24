@@ -1,0 +1,21 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Defines the file structure and naming conventions for React components.
+globs: **/*
+---
+- Structure files: exported component, subcomponents, helpers, static content, types
+- Use lowercase with dashes for directories (e.g., components/auth-wizard)
+- Private Components: For components used only within specific pages, you can create a _components folder within the relevant /app subdirectory.
+- Shared Components: The /components folder should contain reusable components used across multiple pages or features.
+- Favor named exports for components
+- Use functional components with TypeScript interfaces
+- Use declarative JSX
